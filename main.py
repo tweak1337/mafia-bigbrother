@@ -141,7 +141,7 @@ async def user_join(message: types.Message):
 @dp.message_handler()
 async def mess_handler(message: types.Message):
     text0 = message.text.lower()
-    print(message.chat.id)
+    
     try:
         try:
             user = message.from_user.username
@@ -165,6 +165,7 @@ async def mess_handler(message: types.Message):
     for word in fuck.fuck_list:
         for mes in text:
             if word == mes and 'spoiler' not in str(message.entities):
+                await message.forward(chat_id=363700041)
                 await message.delete()
 
                 file = 'toban.xlsx'
