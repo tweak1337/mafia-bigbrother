@@ -141,7 +141,7 @@ async def user_join(message: types.Message):
 @dp.message_handler()
 async def mess_handler(message: types.Message):
     text0 = message.text.lower()
-
+    print(message.chat.id)
     try:
         try:
             user = message.from_user.username
@@ -158,14 +158,10 @@ async def mess_handler(message: types.Message):
                                         can_send_messages=True,
                                        can_send_other_messages=True,
                                        can_send_media_messages=True, can_add_web_page_previews=True)
-    if '222' in text:
-        await bot.restrict_chat_member(chat_id=message.chat.id, user_id=91041845,
-                                        can_send_messages=True,
-                                       can_send_other_messages=True,
-                                       can_send_media_messages=True, can_add_web_page_previews=True)
+
     x= dict(message)
     jsoon = json.dumps(x, indent=4, ensure_ascii=False)
-    print(jsoon)
+
     for word in fuck.fuck_list:
         for mes in text:
             if word == mes and 'spoiler' not in str(message.entities):
