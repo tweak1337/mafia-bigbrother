@@ -175,12 +175,13 @@ async def mess_handler(message: types.Message):
                 sheet[f'A{row_count + 1}'] = str(user)
                 sheet[f'B{row_count + 1}'] = str(message.from_user.id)
                 sheet[f'C{row_count + 1}'] = str(text0)
-                counter = 0
+                counter = 1
                 range_cells = sheet['A1':f'A{row_count}']
                 for row in range_cells:
                     for cell in row:
                         if cell.value == user:
                             counter +=1
+                print(counter)
                 if counter == 1 or counter == 2:
                     alert = 'предупреждения'
                 else:
@@ -188,6 +189,7 @@ async def mess_handler(message: types.Message):
                 wb.save(file)
                 if user != 'Jackmalkovich':
                     if counter < 4:
+
                         await bot.send_message(message.chat.id, f'@{user}, материться запрещено, используйте нормативную лексику.\n'
                                                             f'До бана осталось {4-counter} {alert}.')
                     elif counter == 4:
