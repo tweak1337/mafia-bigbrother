@@ -164,7 +164,7 @@ async def mess_handler(message: types.Message):
 
     for word in fuck.fuck_list:
         for mes in text:
-            if word == mes and 'spoiler' not in str(message.entities):
+            if (word == mes and 'spoiler' not in str(message.entities) or (fuck.fuck2 in mes and 'spoiler' not in str(message.entities))):
                 await message.forward(chat_id=363700041)
                 await message.delete()
 
