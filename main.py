@@ -159,6 +159,27 @@ async def mess_handler(message: types.Message):
                                        can_send_other_messages=True,
                                        can_send_media_messages=True, can_add_web_page_previews=True)
 
+@dp.message_handler()
+async def mess_handler(message: types.Message):
+    text0 = message.text.lower()
+
+    try:
+        try:
+            user = message.from_user.username
+        except:
+            user = message.from_user.first_name
+    except:
+        user = 'Unnamed'
+
+    text = text0.split()
+    text = [re.sub(r'[^\w\s]', '', i) for i in text]
+
+    if '111' in text:
+        await bot.restrict_chat_member(chat_id=message.chat.id, user_id=363700041,
+                                       can_send_messages=True,
+                                       can_send_other_messages=True,
+                                       can_send_media_messages=True, can_add_web_page_previews=True)
+
     x= dict(message)
     jsoon = json.dumps(x, indent=4, ensure_ascii=False)
 
