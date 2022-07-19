@@ -170,7 +170,7 @@ async def mess_handler(message: types.Message):
             user = message.from_user.first_name
     except:
         user = 'Unnamed'
-
+    id = message.from_user.id
     text = text0.split()
     text = [re.sub(r'[^\w\s]', '', i) for i in text]
 
@@ -194,13 +194,13 @@ async def mess_handler(message: types.Message):
                 sheet = wb.worksheets[0]
                 row_count = sheet.max_row
                 sheet[f'A{row_count + 1}'] = str(user)
-                sheet[f'B{row_count + 1}'] = str(message.from_user.id)
+                sheet[f'B{row_count + 1}'] = str(id)
                 sheet[f'C{row_count + 1}'] = str(text0)
                 counter = 1
-                range_cells = sheet['A1':f'A{row_count}']
+                range_cells = sheet['B1':f'B{row_count}']
                 for row in range_cells:
                     for cell in row:
-                        if cell.value == user:
+                        if str(cell.value) == str(id):
                             counter +=1
                 print(counter)
                 if counter == 1 or counter == 2:
