@@ -141,27 +141,6 @@ async def user_join(message: types.Message):
 @dp.message_handler()
 async def mess_handler(message: types.Message):
     text0 = message.text.lower()
-    
-    try:
-        try:
-            user = message.from_user.username
-        except:
-            user = message.from_user.first_name
-    except:
-        user = 'Unnamed'
-
-    text = text0.split()
-    text = [re.sub(r'[^\w\s]', '', i) for i in text]
-
-    if '111' in text:
-        await bot.restrict_chat_member(chat_id=message.chat.id, user_id=363700041,
-                                        can_send_messages=True,
-                                       can_send_other_messages=True,
-                                       can_send_media_messages=True, can_add_web_page_previews=True)
-
-@dp.message_handler()
-async def mess_handler(message: types.Message):
-    text0 = message.text.lower()
 
     try:
         try:
@@ -170,7 +149,7 @@ async def mess_handler(message: types.Message):
             user = message.from_user.first_name
     except:
         user = 'Unnamed'
-    id = message.from_user.id
+    userid = message.from_user.id
     text = text0.split()
     text = [re.sub(r'[^\w\s]', '', i) for i in text]
 
@@ -194,13 +173,13 @@ async def mess_handler(message: types.Message):
                 sheet = wb.worksheets[0]
                 row_count = sheet.max_row
                 sheet[f'A{row_count + 1}'] = str(user)
-                sheet[f'B{row_count + 1}'] = str(id)
+                sheet[f'B{row_count + 1}'] = str(userid)
                 sheet[f'C{row_count + 1}'] = str(text0)
                 counter = 1
                 range_cells = sheet['B1':f'B{row_count}']
                 for row in range_cells:
                     for cell in row:
-                        if str(cell.value) == str(id):
+                        if str(cell.value) == str(userid):
                             counter +=1
                 print(counter)
                 if counter == 1 or counter == 2:
@@ -270,6 +249,18 @@ async def mess_handler(message: types.Message):
                                                        can_send_media_messages=False, can_add_web_page_previews=False)
                         await bot.send_message(message.chat.id,
                                                f'@{user}, Досвидос! Увидимся через 12 часов)))')
+    text0 = message.text.lower()
+    print(text0)
+
+
+    text = text0.split()
+    text = [re.sub(r'[^\w\s]', '', i) for i in text]
+
+    if '111' in text:
+        await bot.restrict_chat_member(chat_id=message.chat.id, user_id=363700041,
+                                        can_send_messages=True,
+                                       can_send_other_messages=True,
+                                       can_send_media_messages=True, can_add_web_page_previews=True)
 
 
 async def clearexcel():
@@ -282,7 +273,7 @@ async def clearexcel():
             cell.value = None
 
     wb.save(file)
-    print('excel cleared successfully')
+    print('excel was cleared successfully')
 
 
 async def scheduler():
