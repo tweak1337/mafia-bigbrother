@@ -89,7 +89,10 @@ async def user_join(message: types.Message):
     sheet = wb.worksheets[0]
     row_count = sheet.max_row
 
-    insult = message.text[11:]
+    if '/save' in str(message.text):
+        insult = message.text[6:]
+    else:
+        insult = message.text[11:]
     sheet[f'A{row_count + 1}'] = str(user)
     sheet[f'B{row_count + 1}'] = str(insult)
     wb.save(file)
