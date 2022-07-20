@@ -11,13 +11,17 @@ import aioschedule
 import random
 import re
 import json
+import pymorphy2
 from googletrans import Translator
+
+import parser
+from parser import *
 
 bot = Bot(token=os.getenv('TOKEN'))
 
 dp = Dispatcher(bot)
 
-
+m = pymorphy2.MorphAnalyzer()
 
 @dp.message_handler(content_types=['new_chat_members'])
 async def user_join(message: types.Message):
@@ -115,7 +119,21 @@ async def user_join(message: types.Message):
             await message.answer(insult)
 
 
+def normalize(s1):
+    sent = []
+    stroka = s1.replace('?', '')
+    stroka = stroka.replace('!', '')
+    stroka = stroka.replace('.', '')
+    stroka = stroka.replace(',', '')
 
+    s = stroka.lower().split()
+
+    for i in s:
+        p = m.parse(i)[0]
+        sent.append(p.normal_form)
+    s2 = ' '.join(sent)
+
+    return s2
 
 @dp.message_handler(commands=['translate', 'перевести'])
 async def user_join(message: types.Message):
@@ -166,105 +184,110 @@ async def mess_handler(message: types.Message):
     jsoon = json.dumps(x, indent=4, ensure_ascii=False)
 
     for word in fuck.fuck_list:
-        for mes in text:
-            if (word == mes and 'spoiler' not in str(message.entities) or (fuck.fuck2 in mes and 'spoiler' not in str(message.entities))):
-                await message.forward(chat_id=363700041)
-                await message.delete()
+        for word2 in fuck.fuck2_list:
+            for mes in text:
+                if (word == mes and 'spoiler' not in str(message.entities) or (word2 in mes and 'spoiler' not in str(message.entities))):
+                    await message.forward(chat_id=363700041)
+                    await message.delete()
 
-                file = 'toban.xlsx'
-                wb = openpyxl.load_workbook(file)
-                sheet = wb.worksheets[0]
-                row_count = sheet.max_row
-                sheet[f'A{row_count + 1}'] = str(user)
-                sheet[f'B{row_count + 1}'] = str(userid)
-                sheet[f'C{row_count + 1}'] = str(text0)
-                counter = 1
-                range_cells = sheet['B1':f'B{row_count}']
-                for row in range_cells:
-                    for cell in row:
-                        if str(cell.value) == str(userid):
-                            counter +=1
-                print(counter)
-                if counter == 1 or counter == 2:
-                    alert = 'предупреждения'
-                else:
-                    alert = 'предупреждение'
-                wb.save(file)
-                if user != 'Jackmalkovich':
-                    if counter < 4:
-
-                        await bot.send_message(message.chat.id, f'@{user}, материться запрещено, используйте нормативную лексику.\n'
-                                                            f'До бана осталось {4-counter} {alert}.')
-                    elif counter == 4:
-                        now = datetime.today()
-                        one_day = timedelta(hours=1)
-                        ban_time = now + one_day
-                        await bot.restrict_chat_member(chat_id=message.chat.id, user_id=message.from_user.id,
-                                                       until_date=ban_time, can_send_messages=False,
-                                                       can_send_other_messages=False,
-                                                       can_send_media_messages=False, can_add_web_page_previews=False)
-                        await bot.send_message(message.chat.id,
-                                               f'@{user}, Досвидос)))! Увидимся через час. \n\nПосле разбана, в случае мата, блокировка будет на 3 часа.')
-                    elif counter == 5:
-                        now = datetime.today()
-                        one_day = timedelta(hours=3)
-                        ban_time = now + one_day
-                        await bot.restrict_chat_member(chat_id=message.chat.id, user_id=message.from_user.id,
-                                                       until_date=ban_time, can_send_messages=False,
-                                                       can_send_other_messages=False,
-                                                       can_send_media_messages=False, can_add_web_page_previews=False)
-                        await bot.send_message(message.chat.id,
-                                               f'@{user}, Досвидос)))! Увидимся через три часа. \n\nПосле разбана, в случае мата, блокировка будет на 12 часов.')
-                    else:
-                        now = datetime.today()
-                        one_day = timedelta(hours=12)
-                        ban_time = now + one_day
-                        await bot.restrict_chat_member(chat_id=message.chat.id, user_id=message.from_user.id,
-                                                       until_date=ban_time, can_send_messages=False,
-                                                       can_send_other_messages=False,
-                                                       can_send_media_messages=False, can_add_web_page_previews=False)
-                        await bot.send_message(message.chat.id,
-                                               f'@{user}, Досвидос)))! Увидимся через 12 часов.')
-                else:
-                    counter = 0
-                    for row in sheet.iter_rows():
+                    file = 'toban.xlsx'
+                    wb = openpyxl.load_workbook(file)
+                    sheet = wb.worksheets[0]
+                    row_count = sheet.max_row
+                    sheet[f'A{row_count + 1}'] = str(user)
+                    sheet[f'B{row_count + 1}'] = str(userid)
+                    sheet[f'C{row_count + 1}'] = str(text0)
+                    counter = 1
+                    range_cells = sheet['B1':f'B{row_count}']
+                    for row in range_cells:
                         for cell in row:
-                            if cell.value == user:
-                                counter += 1
-
-                    if 12-counter == 2 or 12-counter == 3 or 12-counter == 4:
+                            if str(cell.value) == str(userid):
+                                counter +=1
+                    print(counter)
+                    if counter == 1 or counter == 2:
                         alert = 'предупреждения'
-                    elif 12-counter == 1:
+                    else:
                         alert = 'предупреждение'
-                    else:
-                        alert = 'предупреждений'
+                    wb.save(file)
+                    if user != 'Jackmalkovich':
+                        if counter < 4:
 
-                    if counter < 12:
-                        await bot.send_message(message.chat.id, f'Господин @{user}, мой создатель, прошу прощения, но материться запрещено.\n'
-                                                            f'До бана осталось {12-counter} {alert}.')
+                            await bot.send_message(message.chat.id, f'@{user}, материться запрещено, используйте нормативную лексику.\n'
+                                                                f'До бана осталось {4-counter} {alert}.')
+                        elif counter == 4:
+                            now = datetime.today()
+                            one_day = timedelta(hours=1)
+                            ban_time = now + one_day
+                            await bot.restrict_chat_member(chat_id=message.chat.id, user_id=message.from_user.id,
+                                                           until_date=ban_time, can_send_messages=False,
+                                                           can_send_other_messages=False,
+                                                           can_send_media_messages=False, can_add_web_page_previews=False)
+                            await bot.send_message(message.chat.id,
+                                                   f'@{user}, Досвидос)))! Увидимся через час. \n\nПосле разбана, в случае мата, блокировка будет на 3 часа.')
+                        elif counter == 5:
+                            now = datetime.today()
+                            one_day = timedelta(hours=3)
+                            ban_time = now + one_day
+                            await bot.restrict_chat_member(chat_id=message.chat.id, user_id=message.from_user.id,
+                                                           until_date=ban_time, can_send_messages=False,
+                                                           can_send_other_messages=False,
+                                                           can_send_media_messages=False, can_add_web_page_previews=False)
+                            await bot.send_message(message.chat.id,
+                                                   f'@{user}, Досвидос)))! Увидимся через три часа. \n\nПосле разбана, в случае мата, блокировка будет на 12 часов.')
+                        else:
+                            now = datetime.today()
+                            one_day = timedelta(hours=12)
+                            ban_time = now + one_day
+                            await bot.restrict_chat_member(chat_id=message.chat.id, user_id=message.from_user.id,
+                                                           until_date=ban_time, can_send_messages=False,
+                                                           can_send_other_messages=False,
+                                                           can_send_media_messages=False, can_add_web_page_previews=False)
+                            await bot.send_message(message.chat.id,
+                                                   f'@{user}, Досвидос)))! Увидимся через 12 часов.')
                     else:
-                        now = datetime.today()
-                        one_day = timedelta(hours=12)
-                        ban_time = now + one_day
-                        await bot.restrict_chat_member(chat_id=message.chat.id, user_id=message.from_user.id,
-                                                       until_date=ban_time, can_send_messages=False,
-                                                       can_send_other_messages=False,
-                                                       can_send_media_messages=False, can_add_web_page_previews=False)
-                        await bot.send_message(message.chat.id,
-                                               f'@{user}, Досвидос! Увидимся через 12 часов)))')
+                        counter = 0
+                        for row in sheet.iter_rows():
+                            for cell in row:
+                                if cell.value == user:
+                                    counter += 1
+
+                        if 12-counter == 2 or 12-counter == 3 or 12-counter == 4:
+                            alert = 'предупреждения'
+                        elif 12-counter == 1:
+                            alert = 'предупреждение'
+                        else:
+                            alert = 'предупреждений'
+
+                        if counter < 12:
+                            await bot.send_message(message.chat.id, f'Господин @{user}, мой создатель, прошу прощения, но материться запрещено.\n'
+                                                                f'До бана осталось {12-counter} {alert}.')
+                        else:
+                            now = datetime.today()
+                            one_day = timedelta(hours=12)
+                            ban_time = now + one_day
+                            await bot.restrict_chat_member(chat_id=message.chat.id, user_id=message.from_user.id,
+                                                           until_date=ban_time, can_send_messages=False,
+                                                           can_send_other_messages=False,
+                                                           can_send_media_messages=False, can_add_web_page_previews=False)
+                            await bot.send_message(message.chat.id,
+                                                   f'@{user}, Досвидос! Увидимся через 12 часов)))')
+
+
     text0 = message.text.lower()
-    print(text0)
+    text = normalize(text0)
+
+    for men in fuck.men:
+        if men in text:
+            men_compr = parser.get_citates_men()
+
+            await message.reply(random.choice(men_compr))
 
 
-    text = text0.split()
-    text = [re.sub(r'[^\w\s]', '', i) for i in text]
+    for women in fuck.women:
+        if women in text:
+            women_compr = parser.get_citates_women()
 
-    if '111' in text:
-        await bot.restrict_chat_member(chat_id=message.chat.id, user_id=363700041,
-                                        can_send_messages=True,
-                                       can_send_other_messages=True,
-                                       can_send_media_messages=True, can_add_web_page_previews=True)
-
+            await message.reply(random.choice(women_compr))
 
 async def clearexcel():
     file = 'toban.xlsx'
