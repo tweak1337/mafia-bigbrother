@@ -19,6 +19,7 @@ def get_citates_women():
     links = soup.find_all('p', class_='blockquote-text')
 
     women_list = [i.find('a', title=True)['title'][17:] for i in links]
+
     return women_list
 
 def get_citates_men():
@@ -41,7 +42,5 @@ def get_citates_men():
     men_list2 = [i.find('a', title=True)['title'][17:] for i in links2]
     men_list3 = [i.find('a', title=True)['title'][17:] for i in links3]
     men_final_list = men_list+men_list2+men_list3
-    return men_final_list
 
-print(get_citates_women())
-print(get_citates_men())
+    return men_final_list
