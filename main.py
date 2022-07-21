@@ -289,6 +289,10 @@ async def mess_handler(message: types.Message):
 
             await message.reply(random.choice(women_compr))
 
+    for hi in fuck.hello:
+        if hi in text:
+            await message.reply(random.choice(parser.bot_hi))
+
 async def clearexcel():
     file = 'toban.xlsx'
     wb = openpyxl.load_workbook(file)
