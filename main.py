@@ -276,18 +276,18 @@ async def mess_handler(message: types.Message):
     text0 = message.text.lower()
     text = normalize(text0)
 
-    for men in fuck.men:
-        if men in text:
-            men_compr = parser.get_citates_men()
-
-            await message.reply(random.choice(men_compr))
-
-
-    for women in fuck.women:
-        if women in text:
-            women_compr = parser.get_citates_women()
-
-            await message.reply(random.choice(women_compr))
+    # for men in fuck.men:
+    #     if men in text:
+    #         men_compr = parser.get_citates_men()
+    #
+    #         await message.reply(random.choice(men_compr))
+    #
+    #
+    # for women in fuck.women:
+    #     if women in text:
+    #         women_compr = parser.get_citates_women()
+    #
+    #         await message.reply(random.choice(women_compr))
 
     for hi in fuck.hello:
         if hi in text:
