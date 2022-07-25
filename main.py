@@ -23,6 +23,8 @@ dp = Dispatcher(bot)
 
 m = pymorphy2.MorphAnalyzer()
 
+message_counter = 0
+
 @dp.message_handler(content_types=['new_chat_members'])
 async def user_join(message: types.Message):
 
@@ -159,9 +161,14 @@ async def user_join(message: types.Message):
         translate = translate.text
         await message.answer(translate, reply=True)
 
+message_counter = 0
 @dp.message_handler()
 async def mess_handler(message: types.Message):
     text0 = message.text.lower()
+
+    global message_counter
+    message_counter +=1
+
 
     try:
         try:
@@ -276,18 +283,14 @@ async def mess_handler(message: types.Message):
     text0 = message.text.lower()
     text = normalize(text0)
 
-    # for men in fuck.men:
-    #     if men in text:
-    #         men_compr = parser.get_citates_men()
-    #
-    #         await message.reply(random.choice(men_compr))
-    #
-    #
-    # for women in fuck.women:
-    #     if women in text:
-    #         women_compr = parser.get_citates_women()
-    #
-    #         await message.reply(random.choice(women_compr))
+
+
+    if message_counter % 100 == 0:
+        women_compr = parser.get_citates_women()
+        men_compr = parser.get_citates_men()
+        whole_citates = men_compr + women_compr
+        await message.reply(random.choice(whole_citates))
+
 
     for hi in fuck.hello:
         if hi in text:
