@@ -285,7 +285,7 @@ async def mess_handler(message: types.Message):
 
 
 
-    if message_counter % 100 == 0:
+    if message_counter % 50 == 0:
         women_compr = parser.get_citates_women()
         men_compr = parser.get_citates_men()
         whole_citates = men_compr + women_compr
