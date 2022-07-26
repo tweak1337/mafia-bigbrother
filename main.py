@@ -226,9 +226,9 @@ async def mess_handler(message: types.Message):
                             one_day = timedelta(hours=12)
                             ban_time = now + one_day
                             await bot.restrict_chat_member(chat_id=message.chat.id, user_id=message.from_user.id,
-                                                           until_date=ban_time, can_send_messages=False,
-                                                           can_send_other_messages=False,
-                                                           can_send_media_messages=False, can_add_web_page_previews=False)
+                                                           until_date=ban_time, can_send_messages=None,
+                                                           can_send_other_messages=None,
+                                                           can_send_media_messages=None, can_add_web_page_previews=None)
                             await bot.send_message(message.chat.id,
                                                    f'@{user}, Досвидос)))! Увидимся через час. \n\nПосле разбана, в случае мата, блокировка будет на 3 часа.')
                         elif counter == 5:
@@ -236,9 +236,9 @@ async def mess_handler(message: types.Message):
                             one_day = timedelta(hours=3)
                             ban_time = now + one_day
                             await bot.restrict_chat_member(chat_id=message.chat.id, user_id=message.from_user.id,
-                                                           until_date=ban_time, can_send_messages=False,
-                                                           can_send_other_messages=False,
-                                                           can_send_media_messages=False, can_add_web_page_previews=False)
+                                                           until_date=ban_time, can_send_messages=None,
+                                                           can_send_other_messages=None,
+                                                           can_send_media_messages=None, can_add_web_page_previews=None)
                             await bot.send_message(message.chat.id,
                                                    f'@{user}, Досвидос)))! Увидимся через три часа. \n\nПосле разбана, в случае мата, блокировка будет на 12 часов.')
                         else:
@@ -246,9 +246,9 @@ async def mess_handler(message: types.Message):
                             one_day = timedelta(hours=12)
                             ban_time = now + one_day
                             await bot.restrict_chat_member(chat_id=message.chat.id, user_id=message.from_user.id,
-                                                           until_date=ban_time, can_send_messages=False,
-                                                           can_send_other_messages=False,
-                                                           can_send_media_messages=False, can_add_web_page_previews=False)
+                                                           until_date=ban_time, can_send_messages=None,
+                                                           can_send_other_messages=None,
+                                                           can_send_media_messages=None, can_add_web_page_previews=None)
                             await bot.send_message(message.chat.id,
                                                    f'@{user}, Досвидос)))! Увидимся через 12 часов.')
                     else:
@@ -273,9 +273,9 @@ async def mess_handler(message: types.Message):
                             one_day = timedelta(hours=12)
                             ban_time = now + one_day
                             await bot.restrict_chat_member(chat_id=message.chat.id, user_id=message.from_user.id,
-                                                           until_date=ban_time, can_send_messages=False,
-                                                           can_send_other_messages=False,
-                                                           can_send_media_messages=False, can_add_web_page_previews=False)
+                                                           until_date=ban_time, can_send_messages=None,
+                                                           can_send_other_messages=None,
+                                                           can_send_media_messages=None, can_add_web_page_previews=None)
                             await bot.send_message(message.chat.id,
                                                    f'@{user}, Досвидос! Увидимся через 12 часов)))')
 
