@@ -223,7 +223,7 @@ async def mess_handler(message: types.Message):
                                                                 f'До бана осталось {4-counter} {alert}.')
                         elif counter == 4:
                             now = datetime.today()
-                            one_day = timedelta(hours=1)
+                            one_day = timedelta(hours=12)
                             ban_time = now + one_day
                             await bot.restrict_chat_member(chat_id=message.chat.id, user_id=message.from_user.id,
                                                            until_date=ban_time, can_send_messages=False,
@@ -283,8 +283,11 @@ async def mess_handler(message: types.Message):
     text0 = message.text.lower()
     text = normalize(text0)
 
+    if 'id' in text0:
+        await bot.send_message(message.chat.id,
+                               f'Твой ID: {message.from_user.id}')
 
-    print(message_counter)
+
     if message_counter % 80 == 0:
         women_compr = parser.get_citates_women()
         men_compr = parser.get_citates_men()
