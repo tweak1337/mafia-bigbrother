@@ -223,7 +223,7 @@ async def mess_handler(message: types.Message):
                                                                 f'До бана осталось {4-counter} {alert}.')
                         elif counter == 4:
                             now = datetime.today()
-                            one_day = timedelta(hours=12)
+                            one_day = timedelta(hours=1)
                             ban_time = now + one_day
                             await bot.restrict_chat_member(chat_id=message.chat.id, user_id=message.from_user.id,
                                                            until_date=ban_time, can_send_messages=None,
