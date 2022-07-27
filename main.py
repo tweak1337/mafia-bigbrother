@@ -287,12 +287,7 @@ async def mess_handler(message: types.Message):
         await bot.send_message(message.chat.id,
                                f'Твой ID: {message.from_user.id}')
 
-    if '111' in text0:
-
-        await bot.restrict_chat_member(chat_id=message.chat.id, user_id=169613880,
-                                       can_send_messages=True,
-                                       can_send_other_messages=True,
-                                       can_send_media_messages=True, can_add_web_page_previews=True)
+    
     if message_counter % 80 == 0:
         women_compr = parser.get_citates_women()
         men_compr = parser.get_citates_men()
