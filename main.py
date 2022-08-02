@@ -287,7 +287,7 @@ async def mess_handler(message: types.Message):
         await bot.send_message(message.chat.id,
                                f'Твой ID: {message.from_user.id}')
 
-    
+
     if message_counter % 80 == 0:
         women_compr = parser.get_citates_women()
         men_compr = parser.get_citates_men()
