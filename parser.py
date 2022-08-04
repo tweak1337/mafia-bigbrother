@@ -10,6 +10,7 @@ url = 'https://ru.citaty.net/tsitaty-o-zhenshchinakh/'
 today = datetime.today().strftime('%y%m%d')
 yesterday = (datetime.today() - timedelta(1)).strftime('%y%m%d')
 
+old_memes = ['https://www.anekdot.ru/i/caricatures/normal/22/8/3/1659558544.png']
 
 def get_meme():
     headers = {
@@ -29,10 +30,16 @@ def get_meme():
     list_of_memes2 = [i['src'] for i in images2 if 'lazy' in str(i)]
     list_of_memes = list_of_memes1 + list_of_memes2
 
-    random_meme = random.choice(list_of_memes)
-    urllib.request.urlretrieve(f'{random.choice(list_of_memes)}', 'my_image.jpg')
+    def generate_random():
+        random_meme = random.choice(list_of_memes)
 
-    return random_meme
+        if random_meme in old_memes:
+            generate_random()
+        else:
+            old_memes.append(random_meme)
+            urllib.request.urlretrieve(f'{random_meme}', 'my_image.jpg')
+
+    generate_random()
 
 
 bot_hi = ['Гоп-стоп, мы подошли из-за угла.','Мне кажется или я где-то вас видел?','Какие планы на вечер?'

@@ -25,7 +25,6 @@ m = pymorphy2.MorphAnalyzer()
 
 message_counter = 0
 
-old_memes = ['https://www.anekdot.ru/i/caricatures/normal/22/8/3/1659558544.png']
 
 @dp.message_handler(content_types=['new_chat_members'])
 async def user_join(message: types.Message):
@@ -290,11 +289,11 @@ async def mess_handler(message: types.Message):
                                f'Твой ID: {message.from_user.id}')
 
 
-    if counter % 80 == 0:
-        old_memes.append(parser.get_meme())
+    if counter % 80 == 0 or (user == 'Jackmalkovich' and 'мем' in text):
+        parser.get_meme()
         photo = open('my_image.jpg', 'rb')
         await bot.send_photo(message.chat.id, photo)
-        
+
 
 
     # for hi in fuck.hello:
