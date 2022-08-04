@@ -288,16 +288,16 @@ async def mess_handler(message: types.Message):
                                f'Твой ID: {message.from_user.id}')
 
 
-    if message_counter % 80 == 0:
-        women_compr = parser.get_citates_women()
-        men_compr = parser.get_citates_men()
-        whole_citates = men_compr + women_compr
-        await message.reply(random.choice(whole_citates))
+    # if message_counter % 80 == 0:
+    #     women_compr = parser.get_citates_women()
+    #     men_compr = parser.get_citates_men()
+    #     whole_citates = men_compr + women_compr
+    #     await message.reply(random.choice(whole_citates))
 
 
-    for hi in fuck.hello:
-        if hi in text:
-            await message.reply(random.choice(parser.bot_hi))
+    # for hi in fuck.hello:
+    #     if hi in text:
+    #         await message.reply(random.choice(parser.bot_hi))
 
 async def clearexcel():
     file = 'toban.xlsx'
