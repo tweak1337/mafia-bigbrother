@@ -289,7 +289,7 @@ async def mess_handler(message: types.Message):
                                f'Твой ID: {message.from_user.id}')
 
 
-    if counter % 80 == 0 or (user == 'Jackmalkovich' and 'мем' in text):
+    if message_counter % 80 == 0 or (user == 'Jackmalkovich' and 'мем' in text):
         parser.get_meme()
         photo = open('my_image.jpg', 'rb')
         await bot.send_photo(message.chat.id, photo)
