@@ -293,6 +293,7 @@ async def mess_handler(message: types.Message):
         parser.get_meme()
         photo = open('my_image.jpg', 'rb')
         await bot.send_photo(message.chat.id, photo)
+        photo.close()
 
 
 
