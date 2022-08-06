@@ -182,21 +182,41 @@ async def mess_handler(message: types.Message):
     text = text0.split()
     text = [re.sub(r'[^\w\s]', '', i) for i in text]
 
-    if '111' in text:
-        await bot.restrict_chat_member(chat_id=message.chat.id, user_id=363700041,
-                                       can_send_messages=True,
-                                       can_send_other_messages=True,
-                                       can_send_media_messages=True, can_add_web_page_previews=True)
+    # if '111' in text:
+    #     await bot.restrict_chat_member(chat_id=message.chat.id, user_id=363700041,
+    #                                    can_send_messages=True,
+    #                                    can_send_other_messages=True,
+    #                                    can_send_media_messages=True, can_add_web_page_previews=True)
 
     x= dict(message)
     jsoon = json.dumps(x, indent=4, ensure_ascii=False)
+
 
     for word in fuck.fuck_list:
         for word2 in fuck.fuck2_list:
             for mes in text:
                 if (word == mes and 'spoiler' not in str(message.entities) or (word2 in mes and 'spoiler' not in str(message.entities))):
-                    await message.forward(chat_id=363700041)
-                    await message.delete()
+
+                    indx = text.index(mes)
+                    lenofwrd = len(text[indx])
+                    stars = lenofwrd - 2
+                    text[indx] = text[indx][0] + ('*' * stars) + text[indx][-1]
+                    censure_text = ' '.join(text)
+
+                    bad_words = []
+                    for i in fuck.fuck_list:
+                        for j in fuck.fuck2_list:
+                            for k in text:
+                                if k == i or k == j:
+                                    bad_words.append(k)
+                    print(bad_words)
+
+                    if len(bad_words) == 0:
+                        await message.forward(chat_id=363700041)
+
+                        await message.delete()
+
+                        await bot.send_message(message.chat.id, f'@{user} сказал(а) так: {censure_text}')
 
                     file = 'toban.xlsx'
                     wb = openpyxl.load_workbook(file)
@@ -218,11 +238,13 @@ async def mess_handler(message: types.Message):
                         alert = 'предупреждение'
                     wb.save(file)
                     if user != 'Jackmalkovich':
-                        if counter < 4:
+                        if counter == 4:
 
-                            await bot.send_message(message.chat.id, f'@{user}, материться запрещено, используйте нормативную лексику.\n'
-                                                                f'До бана осталось {4-counter} {alert}.')
-                        elif counter == 4:
+                            await bot.send_message(message.chat.id, f'@{user}, Мой разраб еще не убрал бан, так что '
+                                                                    f'лучше пока не материться. Но как только он все '
+                                                                    f'доведет до совершенства, обязательно уберет и бан.\n'
+                                                                    f'А пока что, если сматеришься снова, получишь mute на час')
+                        elif counter == 5:
                             now = datetime.today()
                             one_day = timedelta(hours=1)
                             ban_time = now + one_day
@@ -232,7 +254,7 @@ async def mess_handler(message: types.Message):
                                                            can_send_media_messages=None, can_add_web_page_previews=None)
                             await bot.send_message(message.chat.id,
                                                    f'@{user}, Досвидос)))! Увидимся через час. \n\nПосле разбана, в случае мата, блокировка будет на 3 часа.')
-                        elif counter == 5:
+                        elif counter == 6:
                             now = datetime.today()
                             one_day = timedelta(hours=3)
                             ban_time = now + one_day
@@ -266,9 +288,10 @@ async def mess_handler(message: types.Message):
                         else:
                             alert = 'предупреждений'
 
-                        if counter < 12:
-                            await bot.send_message(message.chat.id, f'Господин @{user}, мой создатель, прошу прощения, но материться запрещено.\n'
-                                                                f'До бана осталось {12-counter} {alert}.')
+                        if counter < 11:
+                            pass
+                        elif counter == 11:
+                            await bot.send_message(message.chat.id, f'Господин @{user}, тревога!!!!')
                         else:
                             now = datetime.today()
                             one_day = timedelta(hours=12)
@@ -279,6 +302,7 @@ async def mess_handler(message: types.Message):
                                                            can_send_media_messages=None, can_add_web_page_previews=None)
                             await bot.send_message(message.chat.id,
                                                    f'@{user}, Досвидос! Увидимся через 12 часов)))')
+
 
 
     text0 = message.text.lower()
