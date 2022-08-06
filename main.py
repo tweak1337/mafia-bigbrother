@@ -166,7 +166,7 @@ message_counter = 0
 @dp.message_handler()
 async def mess_handler(message: types.Message):
     text0 = message.text.lower()
-
+    
     global message_counter
     message_counter +=1
 
