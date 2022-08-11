@@ -5,7 +5,6 @@ from bs4 import BeautifulSoup as bs
 import urllib
 import random
 
-url = 'https://ru.citaty.net/tsitaty-o-zhenshchinakh/'
 
 today = datetime.today().strftime('%y%m%d')
 yesterday = (datetime.today() - timedelta(1)).strftime('%y%m%d')
@@ -16,7 +15,7 @@ def get_meme():
     headers = {
         'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
     }
-    url = f'https://www.anekdot.ru/last/mem/'
+    url = f'https://www.anekdot.ru/last/mem_non_burning/'
     url2 = 'https://www.anekdot.ru/last/mem/2'
     r = requests.get(url=url, headers=headers)
     r2 = requests.get(url=url2, headers=headers)
@@ -31,7 +30,7 @@ def get_meme():
     list_of_memes = list_of_memes1 + list_of_memes2
 
     def generate_random():
-        random_meme = random.choice(list_of_memes)
+        random_meme = random.choice(list_of_memes1)
 
         if random_meme in old_memes:
             generate_random()
