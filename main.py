@@ -218,92 +218,6 @@ async def mess_handler(message: types.Message):
 
                         await bot.send_message(message.chat.id, f'@{user} сказал(а) так: {censure_text}')
 
-                    # file = 'toban.xlsx'
-                    # wb = openpyxl.load_workbook(file)
-                    # sheet = wb.worksheets[0]
-                    # row_count = sheet.max_row
-                    # sheet[f'A{row_count + 1}'] = str(user)
-                    # sheet[f'B{row_count + 1}'] = str(userid)
-                    # sheet[f'C{row_count + 1}'] = str(text0)
-                    # counter = 1
-                    # range_cells = sheet['B1':f'B{row_count}']
-                    # for row in range_cells:
-                    #     for cell in row:
-                    #         if str(cell.value) == str(userid):
-                    #             counter +=1
-                    # print(counter)
-                    # if counter == 1 or counter == 2:
-                    #     alert = 'предупреждения'
-                    # else:
-                    #     alert = 'предупреждение'
-                    # wb.save(file)
-                    # if user != 'Jackmalkovich':
-                    #     if counter == 4:
-                    #
-                    #         await bot.send_message(message.chat.id, f'@{user}, Мой разраб еще не убрал бан, так что '
-                    #                                                 f'лучше пока не материться. Но как только он все '
-                    #                                                 f'доведет до совершенства, обязательно уберет и бан.\n'
-                    #                                                 f'А пока что, если сматеришься снова, получишь mute на час')
-                    #     elif counter == 5:
-                    #         now = datetime.today()
-                    #         one_day = timedelta(hours=1)
-                    #         ban_time = now + one_day
-                    #         await bot.restrict_chat_member(chat_id=message.chat.id, user_id=message.from_user.id,
-                    #                                        until_date=ban_time, can_send_messages=None,
-                    #                                        can_send_other_messages=None,
-                    #                                        can_send_media_messages=None, can_add_web_page_previews=None)
-                    #         await bot.send_message(message.chat.id,
-                    #                                f'@{user}, Досвидос)))! Увидимся через час. \n\nПосле разбана, в случае мата, блокировка будет на 3 часа.')
-                    #     elif counter == 6:
-                    #         now = datetime.today()
-                    #         one_day = timedelta(hours=3)
-                    #         ban_time = now + one_day
-                    #         await bot.restrict_chat_member(chat_id=message.chat.id, user_id=message.from_user.id,
-                    #                                        until_date=ban_time, can_send_messages=None,
-                    #                                        can_send_other_messages=None,
-                    #                                        can_send_media_messages=None, can_add_web_page_previews=None)
-                    #         await bot.send_message(message.chat.id,
-                    #                                f'@{user}, Досвидос)))! Увидимся через три часа. \n\nПосле разбана, в случае мата, блокировка будет на 12 часов.')
-                    #     else:
-                    #         now = datetime.today()
-                    #         one_day = timedelta(hours=12)
-                    #         ban_time = now + one_day
-                    #         await bot.restrict_chat_member(chat_id=message.chat.id, user_id=message.from_user.id,
-                    #                                        until_date=ban_time, can_send_messages=None,
-                    #                                        can_send_other_messages=None,
-                    #                                        can_send_media_messages=None, can_add_web_page_previews=None)
-                    #         await bot.send_message(message.chat.id,
-                    #                                f'@{user}, Досвидос)))! Увидимся через 12 часов.')
-                    # else:
-                    #     counter = 0
-                    #     for row in sheet.iter_rows():
-                    #         for cell in row:
-                    #             if cell.value == user:
-                    #                 counter += 1
-                    #
-                    #     if 12-counter == 2 or 12-counter == 3 or 12-counter == 4:
-                    #         alert = 'предупреждения'
-                    #     elif 12-counter == 1:
-                    #         alert = 'предупреждение'
-                    #     else:
-                    #         alert = 'предупреждений'
-                    #
-                    #     if counter < 11:
-                    #         pass
-                    #     elif counter == 11:
-                    #         await bot.send_message(message.chat.id, f'Господин @{user}, тревога!!!!')
-                    #     else:
-                    #         now = datetime.today()
-                    #         one_day = timedelta(hours=12)
-                    #         ban_time = now + one_day
-                    #         await bot.restrict_chat_member(chat_id=message.chat.id, user_id=message.from_user.id,
-                    #                                        until_date=ban_time, can_send_messages=None,
-                    #                                        can_send_other_messages=None,
-                    #                                        can_send_media_messages=None, can_add_web_page_previews=None)
-                    #         await bot.send_message(message.chat.id,
-                    #                                f'@{user}, Досвидос! Увидимся через 12 часов)))')
-
-
 
     text0 = message.text.lower()
     text = normalize(text0)
@@ -314,7 +228,7 @@ async def mess_handler(message: types.Message):
 
 
     if message_counter % 80 == 0 or (user == 'Jackmalkovich' and 'мем' in text):
-        parser.get_meme()
+        parser.whole_memes()
         photo = open('my_image.jpg', 'rb')
         await bot.send_photo(message.chat.id, photo)
         photo.close()
