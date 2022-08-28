@@ -45,10 +45,8 @@ async def user_join(message: types.Message):
 
 @dp.message_handler(commands=['help', 'start'])
 async def user_join(message: types.Message):
-    await message.answer(f'Привет! Я бот этой группы. В основном я баню за мат, но еще я умею оскорблять, и сохранять оскорбления\n\n'
-                         f'Если хочешь кого-то оскорбить, выбери сообщение и напиши /оскорбить.\n\n'
-                         f'Если хочешь сохранить оскорбление, напиши /сохранить ВАШЕ ОСКОРБЛЕНИЕ.\n\n'
-                         f'Учти, что маты и слишком грубые выказывания тут так же запрещены!')
+    await message.answer(f'Привет! Я бот этой группы. В основном я цензурирую мат, но еще я умею оскорблять, и присылать мемы\n\n'
+                         f'Полный список команд доступен при вводе "/" в поле для ввода текста.')
 
 
 @dp.message_handler(commands=['оскорбить', 'insult'])
@@ -170,7 +168,7 @@ async def user_join(message: types.Message):
     photo = open('my_image.jpg', 'rb')
     await bot.send_photo(message.chat.id, photo)
     photo.close()
-    
+
 
 message_counter = 0
 @dp.message_handler()
