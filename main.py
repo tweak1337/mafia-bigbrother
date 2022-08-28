@@ -150,6 +150,7 @@ async def user_join(message: types.Message):
         translate = translate.text
         await message.answer(translate, reply=True)
 
+
 @dp.message_handler(commands=['translate_eng'])
 async def user_join(message: types.Message):
 
@@ -161,6 +162,15 @@ async def user_join(message: types.Message):
         translate = translator.translate(text=message.reply_to_message.text, dest='en')
         translate = translate.text
         await message.answer(translate, reply=True)
+
+@dp.message_handler(commands=['meme'])
+async def user_join(message: types.Message):
+
+    parser.whole_memes()
+    photo = open('my_image.jpg', 'rb')
+    await bot.send_photo(message.chat.id, photo)
+    photo.close()
+    
 
 message_counter = 0
 @dp.message_handler()
@@ -227,7 +237,7 @@ async def mess_handler(message: types.Message):
                                f'Твой ID: {message.from_user.id}')
 
 
-    if message_counter % 80 == 0 or (user == 'Jackmalkovich' and 'мем' in text):
+    if message_counter % 80 == 0:
         parser.whole_memes()
         photo = open('my_image.jpg', 'rb')
         await bot.send_photo(message.chat.id, photo)
