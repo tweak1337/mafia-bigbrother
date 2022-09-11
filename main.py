@@ -14,8 +14,11 @@ import json
 import pymorphy2
 from googletrans import Translator
 
+import replicate
+
 import parser
 from parser import *
+
 
 bot = Bot(token=os.getenv('TOKEN'))
 
@@ -24,7 +27,7 @@ dp = Dispatcher(bot)
 m = pymorphy2.MorphAnalyzer()
 
 message_counter = 0
-
+model = replicate.models.get("stability-ai/stable-diffusion")
 
 @dp.message_handler(content_types=['new_chat_members'])
 async def user_join(message: types.Message):
@@ -234,6 +237,15 @@ async def mess_handler(message: types.Message):
         await bot.send_message(message.chat.id,
                                f'Твой ID: {message.from_user.id}')
 
+    if 'нарисуй' in text0 and 'jackmalkovich' in str(user).lower():
+        promt = text0[8:]
+        output = model.predict(prompt=promt)
+        output = output[0]
+        p = requests.get(output)
+        out = open("myimg.jpg", "wb")
+        out.write(p.content)
+        await bot.send_photo(message.chat.id, out)
+        out.close()
 
     if message_counter % 80 == 0:
         parser.whole_memes()
