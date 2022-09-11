@@ -13,7 +13,7 @@ import re
 import json
 import pymorphy2
 from googletrans import Translator
-
+import requests as req
 import replicate
 
 import parser
@@ -241,7 +241,7 @@ async def mess_handler(message: types.Message):
         promt = text0[8:]
         output = model.predict(prompt=promt)
         output = output[0]
-        p = requests.get(output)
+        p = req.get(output)
         out = open("myimg.jpg", "wb")
         out.write(p.content)
         await bot.send_photo(message.chat.id, out)
