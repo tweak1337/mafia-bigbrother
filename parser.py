@@ -5,10 +5,10 @@ from bs4 import BeautifulSoup as bs
 import urllib
 import random
 from fake_useragent import UserAgent
-
+import replicate
 
 ua = UserAgent()
-
+model = replicate.models.get("stability-ai/stable-diffusion")
 
 today = datetime.today().strftime('%y%m%d')
 yesterday = (datetime.today() - timedelta(1)).strftime('%y%m%d')
