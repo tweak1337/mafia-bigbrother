@@ -5,10 +5,10 @@ from bs4 import BeautifulSoup as bs
 import urllib
 import random
 from fake_useragent import UserAgent
-
+import replicate
 
 ua = UserAgent()
-
+model = replicate.models.get("stability-ai/stable-diffusion")
 
 today = datetime.today().strftime('%y%m%d')
 yesterday = (datetime.today() - timedelta(1)).strftime('%y%m%d')
@@ -188,3 +188,14 @@ def whole_memes():
             urllib.request.urlretrieve(f'{random_meme}', 'my_image.jpg')
 
     generate_random()
+
+    
+
+def generate_picture(promt):
+    output = model.predict(prompt=promt)
+    output = output[0]
+    p = requests.get(output)
+    out = open("myimg.jpg", "wb")
+    out.write(p.content)
+    out.close()
+

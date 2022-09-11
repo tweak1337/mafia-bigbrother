@@ -47,13 +47,13 @@ async def user_join(message: types.Message):
 
 
 @dp.message_handler(commands=['help', 'start'])
-async def user_join(message: types.Message):
+async def help_message(message: types.Message):
     await message.answer(f'Привет! Я бот этой группы. В основном я цензурирую мат, но еще я умею оскорблять, и присылать мемы\n\n'
                          f'Полный список команд доступен при вводе "/" в поле для ввода текста.')
 
 
 @dp.message_handler(commands=['оскорбить', 'insult'])
-async def user_join(message: types.Message):
+async def insult(message: types.Message):
     try:
         try:
             user = message.from_user.username
@@ -82,7 +82,7 @@ async def user_join(message: types.Message):
 
 
 @dp.message_handler(commands=['сохранить', 'save'])
-async def user_join(message: types.Message):
+async def save_insult(message: types.Message):
 
     try:
         try:
@@ -140,7 +140,7 @@ def normalize(s1):
     return s2
 
 @dp.message_handler(commands=['translate', 'перевести'])
-async def user_join(message: types.Message):
+async def translate_to_ru(message: types.Message):
 
     if not message.reply_to_message:
         await message.answer("Нужно процитировать сообщение, чтобы его перевести.")
@@ -153,7 +153,7 @@ async def user_join(message: types.Message):
 
 
 @dp.message_handler(commands=['translate_eng'])
-async def user_join(message: types.Message):
+async def english_translate(message: types.Message):
 
     if not message.reply_to_message:
         await message.answer("Нужно процитировать сообщение, чтобы его перевести.")
@@ -165,13 +165,29 @@ async def user_join(message: types.Message):
         await message.answer(translate, reply=True)
 
 @dp.message_handler(commands=['meme'])
-async def user_join(message: types.Message):
+async def send_meme(message: types.Message):
 
     parser.whole_memes()
     photo = open('my_image.jpg', 'rb')
     await bot.send_photo(message.chat.id, photo)
     photo.close()
 
+# @dp.message_handler(commands=['pic'])
+# async def generate_pic(message: types.Message):
+#     promt = text0[8:]
+#
+#     translator = Translator()
+#     translate = translator.translate(text=promt, dest='en')
+#     translate = translate.text
+#     promt = translate
+#     try:
+#         parser.generate_picture(promt)
+#
+#         photo = open("myimg.jpg", "rb")
+#         await bot.send_photo(message.chat.id, photo)
+#         photo.close()
+#     except:
+#         await message.answer('В запросе содержится нецензурный контент. Такое запрещено', reply=True)
 
 message_counter = 0
 @dp.message_handler()
@@ -237,15 +253,22 @@ async def mess_handler(message: types.Message):
         await bot.send_message(message.chat.id,
                                f'Твой ID: {message.from_user.id}')
 
-    if 'нарисуй' in text0 and 'jackmalkovich' in str(user).lower():
+    if 'нарисуй' in text0:
         promt = text0[8:]
-        output = model.predict(prompt=promt)
-        output = output[0]
-        p = req.get(output)
-        out = open("myimg.jpg", "wb")
-        out.write(p.content)
-        await bot.send_photo(message.chat.id, out)
-        out.close()
+
+        translator = Translator()
+        translate = translator.translate(text=promt, dest='en')
+        translate = translate.text
+        promt = translate
+        try:
+            parser.generate_picture(promt)
+
+            photo = open("myimg.jpg", "rb")
+            await bot.send_photo(message.chat.id, photo)
+            photo.close()
+        except:
+            await message.answer('В запросе содержится нецензурный контент. Такое запрещено', reply=True)
+
 
     if message_counter % 80 == 0:
         parser.whole_memes()
