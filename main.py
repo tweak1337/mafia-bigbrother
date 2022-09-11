@@ -260,14 +260,14 @@ async def mess_handler(message: types.Message):
         translate = translator.translate(text=promt, dest='en')
         translate = translate.text
         promt = translate
-        try:
-            parser.generate_picture(promt)
+        # try:
+        parser.generate_picture(promt)
 
-            photo = open("myimg.jpg", "rb")
-            await bot.send_photo(message.chat.id, photo)
-            photo.close()
-        except:
-            await message.answer('В запросе содержится нецензурный контент. Такое запрещено', reply=True)
+        photo = open("myimg.jpg", "rb")
+        await bot.send_photo(message.chat.id, photo)
+        photo.close()
+        # except:
+        #     await message.answer('В запросе содержится нецензурный контент. Такое запрещено', reply=True)
 
 
     if message_counter % 80 == 0:
