@@ -253,7 +253,7 @@ async def mess_handler(message: types.Message):
         await bot.send_message(message.chat.id,
                                f'Твой ID: {message.from_user.id}')
 
-    if 'нарисуй' in text0:
+    if 'нарисуй' == text0[0:7]:
         promt = text0[8:]
 
         translator = Translator()
