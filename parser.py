@@ -188,3 +188,12 @@ def whole_memes():
             urllib.request.urlretrieve(f'{random_meme}', 'my_image.jpg')
 
     generate_random()
+    
+
+def generate_picture(promt):
+    output = model.predict(prompt=promt)
+    output = output[0]
+    p = requests.get(output)
+    out = open("myimg.jpg", "wb")
+    out.write(p.content)
+    out.close()

@@ -239,13 +239,12 @@ async def mess_handler(message: types.Message):
 
     if 'нарисуй' in text0 and 'jackmalkovich' in str(user).lower():
         promt = text0[8:]
-        output = model.predict(prompt=promt)
-        output = output[0]
-        p = requests.get(output)
-        out = open("myimg.jpg", "wb")
-        out.write(p.content)
-        await bot.send_photo(message.chat.id, out)
-        out.close()
+        parser.generate_picture(promt)
+        
+        photo = open("myimg.jpg", "rb")
+        await bot.send_photo(message.chat.id, photo)
+        photo.close()
+        
 
     if message_counter % 80 == 0:
         parser.whole_memes()
