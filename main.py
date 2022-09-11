@@ -153,7 +153,7 @@ async def user_join(message: types.Message):
 
 
 @dp.message_handler(commands=['translate_eng'])
-async def user_join(message: types.Message):
+async def english_translate(message: types.Message):
 
     if not message.reply_to_message:
         await message.answer("Нужно процитировать сообщение, чтобы его перевести.")
@@ -239,6 +239,12 @@ async def mess_handler(message: types.Message):
 
     if 'нарисуй' in text0 and 'jackmalkovich' in str(user).lower():
         promt = text0[8:]
+        
+        translator = Translator()
+        translate = translator.translate(text=promt, dest='en')
+        translate = translate.text
+        promt = translate
+        
         parser.generate_picture(promt)
         
         photo = open("myimg.jpg", "rb")
