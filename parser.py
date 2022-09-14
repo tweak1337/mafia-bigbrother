@@ -53,15 +53,16 @@ def get_meme_pikabu():
     headers = {
         'user-agent':'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Mobile Safari/537.36'
     }
-    url = 'https://pikabu.ru/tag/%D0%9C%D0%B5%D0%BC%D1%8B,%D0%AE%D0%BC%D0%BE%D1%80/hot?et=%D0%94%D0%BB%D0%B8%D0%BD%D0%BD%D0%BE%D0%BF%D0%BE%D1%81%D1%82&d=5346&D=5353'
-    url2 = 'https://pikabu.ru/tag/%D0%9C%D0%B5%D0%BC%D1%8B,%D0%AE%D0%BC%D0%BE%D1%80/hot?et=%D0%94%D0%BB%D0%B8%D0%BD%D0%BD%D0%BE%D0%BF%D0%BE%D1%81%D1%82&d=5346&D=5353&page=2'
-    url3 = 'https://pikabu.ru/tag/%D0%9C%D0%B5%D0%BC%D1%8B,%D0%AE%D0%BC%D0%BE%D1%80/hot?et=%D0%94%D0%BB%D0%B8%D0%BD%D0%BD%D0%BE%D0%BF%D0%BE%D1%81%D1%82&d=5346&D=5353&page=3'
-    url4 = 'https://pikabu.ru/tag/%D0%9C%D0%B5%D0%BC%D1%8B,%D0%AE%D0%BC%D0%BE%D1%80/hot?et=%D0%94%D0%BB%D0%B8%D0%BD%D0%BD%D0%BE%D0%BF%D0%BE%D1%81%D1%82&d=5346&D=5353&page=4'
-    url5 = 'https://pikabu.ru/tag/%D0%9C%D0%B5%D0%BC%D1%8B,%D0%AE%D0%BC%D0%BE%D1%80/hot?et=%D0%94%D0%BB%D0%B8%D0%BD%D0%BD%D0%BE%D0%BF%D0%BE%D1%81%D1%82&d=5346&D=5353&page=5'
-    url6 = 'https://pikabu.ru/tag/%D0%9C%D0%B5%D0%BC%D1%8B,%D0%AE%D0%BC%D0%BE%D1%80/hot?et=%D0%94%D0%BB%D0%B8%D0%BD%D0%BD%D0%BE%D0%BF%D0%BE%D1%81%D1%82&d=5346&D=5353&page=6'
-    url7 = 'https://pikabu.ru/tag/%D0%9C%D0%B5%D0%BC%D1%8B,%D0%AE%D0%BC%D0%BE%D1%80/hot?et=%D0%94%D0%BB%D0%B8%D0%BD%D0%BD%D0%BE%D0%BF%D0%BE%D1%81%D1%82&d=5346&D=5353&page=7'
-    url8 = 'https://pikabu.ru/tag/%D0%9C%D0%B5%D0%BC%D1%8B,%D0%AE%D0%BC%D0%BE%D1%80/hot?et=%D0%94%D0%BB%D0%B8%D0%BD%D0%BD%D0%BE%D0%BF%D0%BE%D1%81%D1%82&d=5346&D=5353&page=8'
-    url9 = 'https://pikabu.ru/tag/%D0%9C%D0%B5%D0%BC%D1%8B,%D0%AE%D0%BC%D0%BE%D1%80/hot?et=%D0%94%D0%BB%D0%B8%D0%BD%D0%BD%D0%BE%D0%BF%D0%BE%D1%81%D1%82&d=5346&D=5353&page=9'
+
+    url = 'https://pikabu.ru/tag/%D0%9C%D0%B5%D0%BC%D1%8B,%D0%AE%D0%BC%D0%BE%D1%80/hot?et=%D0%94%D0%BB%D0%B8%D0%BD%D0%BD%D0%BE%D0%BF%D0%BE%D1%81%D1%82'
+    url2 = 'https://pikabu.ru/tag/%D0%9C%D0%B5%D0%BC%D1%8B,%D0%AE%D0%BC%D0%BE%D1%80/hot?et=%D0%94%D0%BB%D0%B8%D0%BD%D0%BD%D0%BE%D0%BF%D0%BE%D1%81%D1%82&page=2'
+    url3 = 'https://pikabu.ru/tag/%D0%9C%D0%B5%D0%BC%D1%8B,%D0%AE%D0%BC%D0%BE%D1%80/hot?et=%D0%94%D0%BB%D0%B8%D0%BD%D0%BD%D0%BE%D0%BF%D0%BE%D1%81%D1%82&page=3'
+    url4 = 'https://pikabu.ru/tag/%D0%9C%D0%B5%D0%BC%D1%8B,%D0%AE%D0%BC%D0%BE%D1%80/hot?et=%D0%94%D0%BB%D0%B8%D0%BD%D0%BD%D0%BE%D0%BF%D0%BE%D1%81%D1%82&page=4'
+    url5 = 'https://pikabu.ru/tag/%D0%9C%D0%B5%D0%BC%D1%8B,%D0%AE%D0%BC%D0%BE%D1%80/hot?et=%D0%94%D0%BB%D0%B8%D0%BD%D0%BD%D0%BE%D0%BF%D0%BE%D1%81%D1%82&page=5'
+    url6 = 'https://pikabu.ru/tag/%D0%9C%D0%B5%D0%BC%D1%8B,%D0%AE%D0%BC%D0%BE%D1%80/hot?et=%D0%94%D0%BB%D0%B8%D0%BD%D0%BD%D0%BE%D0%BF%D0%BE%D1%81%D1%82&page=6'
+    url7 = 'https://pikabu.ru/tag/%D0%9C%D0%B5%D0%BC%D1%8B,%D0%AE%D0%BC%D0%BE%D1%80/hot?et=%D0%94%D0%BB%D0%B8%D0%BD%D0%BD%D0%BE%D0%BF%D0%BE%D1%81%D1%82&page=7'
+    url8 = 'https://pikabu.ru/tag/%D0%9C%D0%B5%D0%BC%D1%8B,%D0%AE%D0%BC%D0%BE%D1%80/hot?et=%D0%94%D0%BB%D0%B8%D0%BD%D0%BD%D0%BE%D0%BF%D0%BE%D1%81%D1%82&page=8'
+    url9 = 'https://pikabu.ru/tag/%D0%9C%D0%B5%D0%BC%D1%8B,%D0%AE%D0%BC%D0%BE%D1%80/hot?et=%D0%94%D0%BB%D0%B8%D0%BD%D0%BD%D0%BE%D0%BF%D0%BE%D1%81%D1%82&page=9'
 
     r = requests.get(url=url, headers=headers)
     r2 = requests.get(url=url2, headers=headers)
@@ -184,6 +185,7 @@ def whole_memes():
         if random_meme in old_memes:
             generate_random()
         else:
+            print(random_meme)
             old_memes.append(random_meme)
             urllib.request.urlretrieve(f'{random_meme}', 'my_image.jpg')
 
